@@ -43,40 +43,112 @@ function search(){
     console.log("searching...");
     axios.get(`http://localhost:5000/get-cricket/${player_}`)
     .then((result)=> {
-        console.log(result.data);
-        displayPlayer(result.data)
-
+        console.log(result);
+        playerDetailsDiv.innerHTML=''
+        if(result.data!=""){
+            displayPlayer(result.data)
+        }
     })
     .catch((err)=> console.log(err));
 }
 
 function displayPlayer(myObj){
     playerDetailsDiv.innerHTML=`
-        <img src="${myObj.imgUrl}" >
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-5">
+                <img src="${myObj.imgUrl}" alt="Responsive image" class="image-container img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h1 id="playerName">${myObj.name}</h1>
+                <p class="text-muted mb-4">${myObj.career}</p>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-danger" onClick="editPlayer()" class="edit">Edit</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <h2 class="font-weight-bold">Personal Information</h2>
+                <br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="font-weight-bold">Born</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>${myObj.dob}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="font-weight-bold">BirthPlace</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>${myObj.birthPlace}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <br>
-        <p>${myObj.career}<p>
         <br>
-        <h3 id="playerName">${myObj.name}</h3>
-        <br>
-        <h3>${myObj.dob}</h3>
-        <br>
-        <br>
-        <h2>Personal Information</h2>
-        <br>
-        <h3>No of Matches: ${myObj.matches}</h3>
-        <br>
-        <h3>Runs: ${myObj.score}</h3>
-        <br>
-        <h3>No of fifties :${myObj.fifties}</h3>
-        <br>
-        <h3>No of centuries${myObj.centuries}</h3>
-        <br>
-        <h3>Avg: ${myObj.average}</h3>
-        <br>
-        <h3>Wickets: ${myObj.wickets}</h3>
-        <br>
-        <button onClick="editPlayer()" class="edit">Edit</button>
+        <div class="row">
+            <div class="col-md-5">
+                <h2 class="font-weight-bold">Statistics</h2>
+                <br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="font-weight-bold">Matches</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>${myObj.matches}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="font-weight-bold">Runs</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>${myObj.score}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="font-weight-bold">Fifties</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>${myObj.fifties}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="font-weight-bold">Centuries</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>${myObj.centuries}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="font-weight-bold">Wickets</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>${myObj.wickets}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="font-weight-bold">Average</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p>${myObj.average}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     `
+    document.getElementById('id12').scrollIntoView();
 
 }
 
@@ -99,6 +171,7 @@ function editPlayer(){
         document.getElementById("id9").value=myObj.centuries;
         document.getElementById("id10").value=myObj.wickets;
         document.getElementById("id11").value=myObj.average;
+        document.getElementById('form').scrollIntoView();
 
 
     })
